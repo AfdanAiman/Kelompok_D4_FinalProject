@@ -1,11 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project Tekser</title>
-  </head>
-  <body>
-    <h1>Hello World! Silakan edit file ini.</h1>
-  </body>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Final Project | Direktori Tugas Akhir</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-100 text-gray-800">
+
+  
+
+<!-- ===== TOP BAR ===== -->
+<header class="bg-blue-900">
+  <div class="max-w-7xl mx-auto px-6 py-6">
+    <h1 class="text-2xl font-semibold text-white tracking-wide">
+      Thesis Directory Information System
+    </h1>
+    <p class="text-sm text-blue-200 mt-1">
+      Faculty of Information Technology — Server Technology Practicum
+    </p>
+  </div>
+</header>
+
+<!-- ===== MAIN ===== -->
+<main class="max-w-7xl mx-auto px-6 py-10 space-y-10">
+
+<!-- ===== INTRO ===== -->
+<section class="bg-white rounded-xl shadow-sm p-6">
+  <h2 class="text-lg font-semibold mb-2">
+    📘 System Overview
+  </h2>
+  <p class="text-sm text-gray-600 leading-relaxed">
+    This system is used to manage and store undergraduate thesis titles
+    submitted by students. Data can be added, searched, and removed securely
+    through this interface.
+  </p>
+</section>
+
+<!-- ===== FORM ===== -->
+<section class="bg-white rounded-xl shadow-sm">
+  <div class="border-b px-6 py-4">
+    <h2 class="text-lg font-semibold">
+      ➕ Add New Thesis Data
+    </h2>
+    <p class="text-sm text-gray-500">
+      Fill in the student and thesis information accurately
+    </p>
+  </div>
+
+  <form method="POST" action="/add" class="px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label class="text-sm font-medium">Student Name</label>
+      <input name="nama" required
+        class="mt-1 w-full border rounded-lg px-3 py-2 focus:ring focus:border-blue-600" />
+    </div>
+
+    <div>
+      <label class="text-sm font-medium">Student ID (NIM)</label>
+      <input name="nim" required
+        class="mt-1 w-full border rounded-lg px-3 py-2 focus:ring focus:border-blue-600" />
+    </div>
+
+    <div>
+      <label class="text-sm font-medium">Study Program</label>
+      <input name="prodi" required
+        class="mt-1 w-full border rounded-lg px-3 py-2 focus:ring focus:border-blue-600" />
+    </div>
+
+    <div class="md:col-span-2">
+      <label class="text-sm font-medium">Thesis Title / Description</label>
+      <textarea name="content" rows="3" required
+        class="mt-1 w-full border rounded-lg px-3 py-2 focus:ring focus:border-blue-600"></textarea>
+    </div>
+
+    <div class="md:col-span-2 text-right">
+      <button
+        class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded-lg transition">
+        Save Data
+      </button>
+    </div>
+  </form>
+</section>
+
+<!-- ===== SEARCH ===== -->
+<section class="bg-white rounded-xl shadow-sm px-6 py-4">
+  <form method="GET" action="/" class="flex gap-3">
+    <input
+      type="text"
+      name="search"
+      value="<%= search || '' %>"
+      placeholder="Search thesis title..."
+      class="flex-1 border rounded-lg px-3 py-2 focus:ring focus:border-blue-600"
+    />
+    <button class="bg-gray-800 hover:bg-gray-900 text-white px-6 rounded-lg">
+      Search
+    </button>
+  </form>
+</section>
+
+<!-- ===== TABLE ===== -->
+<section class="bg-white rounded-xl shadow-sm">
+  <div class="border-b px-6 py-4 flex justify-between items-center">
+    <div>
+      <h2 class="text-lg font-semibold">
+        📑 Thesis Data List
+      </h2>
+      <p class="text-sm text-gray-500">
+        Stored student thesis records
+      </p>
+    </div>
+    <span class="text-xs bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+      Total Records: <%= menfess.length %>
+    </span>
+  </div>
+
+  <div class="overflow-x-auto px-6 py-4">
+    <table class="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="border px-3 py-2 text-center">No</th>
+          <th class="border px-3 py-2">Name</th>
+          <th class="border px-3 py-2">Student ID</th>
+          <th class="border px-3 py-2">Program</th>
+          <th class="border px-3 py-2">Thesis Title</th>
+          <th class="border px-3 py-2 text-center">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if (menfess.length === 0) { %>
+          <tr>
+            <td colspan="6" class="text-center py-10 text-gray-500">
+              No thesis data available
+            </td>
+          </tr>
+        <% } %>
+
+        <% menfess.forEach((m, i) => { %>
+          <tr class="hover:bg-slate-50">
+            <td class="border px-3 py-2 text-center"><%= i + 1 %></td>
+            <td class="border px-3 py-2"><%= m.nama %></td>
+            <td class="border px-3 py-2"><%= m.nim %></td>
+            <td class="border px-3 py-2"><%= m.prodi %></td>
+            <td class="border px-3 py-2"><%= m.content %></td>
+            <td class="border px-3 py-2 text-center">
+              <form method="POST" action="/delete/<%= m.id %>">
+                <button
+                  class="text-red-600 hover:text-red-800 hover:underline"
+                  onclick="return confirm('Delete this data?')">
+                  Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-white border-t mt-14">
+  <div class="max-w-7xl mx-auto px-6 py-6 text-sm text-gray-500 text-center">
+    © 2026 Thesis Directory Information System  
+    <br />
+    Server Technology Practicum — Tekser D
+  </div>
+</footer>
+
+</body>
 </html>
