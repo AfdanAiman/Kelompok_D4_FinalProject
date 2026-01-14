@@ -3,11 +3,9 @@ USE ta_db;
 
 CREATE TABLE IF NOT EXISTS menfess (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  content TEXT,
+  nama VARCHAR(100) NOT NULL,
+  nim VARCHAR(30) NOT NULL,
+  prodi VARCHAR(100) NOT NULL,
+  content TEXT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-INSERT INTO menfess (content) VALUES
-('Halo, ini menfess pertama'),
-('Docker akhirnya jalan'),
-('Tekser D paling solid');

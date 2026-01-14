@@ -1,137 +1,133 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>Final Project | Direktori Tugas Akhir</title>
+  <title>Sistem Informasi Direktori Tugas Akhir</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-slate-100 text-gray-800">
+<body class="bg-slate-100 min-h-screen text-gray-800">
 
-  
-
-<!-- ===== TOP BAR ===== -->
-<header class="bg-blue-900">
+<!-- ===== HEADER ===== -->
+<header class="bg-blue-900 text-white">
   <div class="max-w-7xl mx-auto px-6 py-6">
-    <h1 class="text-2xl font-semibold text-white tracking-wide">
-      Thesis Directory Information System
+    <h1 class="text-2xl font-bold tracking-wide">
+      Aplikasi Direktori Tugas Akhir Mahasiswa Mata Kuliah Teknologi Server
     </h1>
-    <p class="text-sm text-blue-200 mt-1">
-      Faculty of Information Technology — Server Technology Practicum
+    <p class="text-sm opacity-90 mt-1">
+      Fakultas Teknologi Informasi — Praktikum Teknologi Server (Tekser D)
     </p>
   </div>
 </header>
 
-<!-- ===== MAIN ===== -->
+<!-- ===== CONTENT ===== -->
 <main class="max-w-7xl mx-auto px-6 py-10 space-y-10">
 
-<!-- ===== INTRO ===== -->
-<section class="bg-white rounded-xl shadow-sm p-6">
-  <h2 class="text-lg font-semibold mb-2">
-    📘 System Overview
-  </h2>
-  <p class="text-sm text-gray-600 leading-relaxed">
-    This system is used to manage and store undergraduate thesis titles
-    submitted by students. Data can be added, searched, and removed securely
-    through this interface.
+<!-- ===== INFO BAR ===== -->
+<div class="bg-white border-l-4 border-blue-700 p-4 rounded shadow-sm">
+  <p class="text-sm text-gray-700">
+    Halaman ini digunakan untuk mengelola data judul tugas akhir mahasiswa
+    yang tersimpan pada sistem.
   </p>
-</section>
+</div>
 
-<!-- ===== FORM ===== -->
-<section class="bg-white rounded-xl shadow-sm">
+<!-- ===== FORM INPUT ===== -->
+<section class="bg-white rounded-lg shadow">
   <div class="border-b px-6 py-4">
-    <h2 class="text-lg font-semibold">
-      ➕ Add New Thesis Data
+    <h2 class="text-lg font-semibold text-gray-700">
+      📄 Form Input Data Tugas Akhir
     </h2>
     <p class="text-sm text-gray-500">
-      Fill in the student and thesis information accurately
+      Isikan data mahasiswa dan judul tugas akhir secara lengkap
     </p>
   </div>
 
-  <form method="POST" action="/add" class="px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <form method="POST" action="/add" class="px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-5">
     <div>
-      <label class="text-sm font-medium">Student Name</label>
+      <label class="block text-sm font-medium mb-1">Nama Mahasiswa</label>
       <input name="nama" required
-        class="mt-1 w-full border rounded-lg px-3 py-2 focus:ring focus:border-blue-600" />
+        class="w-full border px-3 py-2 rounded focus:ring focus:border-blue-500" />
     </div>
 
     <div>
-      <label class="text-sm font-medium">Student ID (NIM)</label>
+      <label class="block text-sm font-medium mb-1">NIM</label>
       <input name="nim" required
-        class="mt-1 w-full border rounded-lg px-3 py-2 focus:ring focus:border-blue-600" />
+        class="w-full border px-3 py-2 rounded focus:ring focus:border-blue-500" />
     </div>
 
     <div>
-      <label class="text-sm font-medium">Study Program</label>
+      <label class="block text-sm font-medium mb-1">Program Studi</label>
       <input name="prodi" required
-        class="mt-1 w-full border rounded-lg px-3 py-2 focus:ring focus:border-blue-600" />
+        class="w-full border px-3 py-2 rounded focus:ring focus:border-blue-500" />
     </div>
 
     <div class="md:col-span-2">
-      <label class="text-sm font-medium">Thesis Title / Description</label>
+      <label class="block text-sm font-medium mb-1">
+        Judul / Deskripsi Tugas Akhir
+      </label>
       <textarea name="content" rows="3" required
-        class="mt-1 w-full border rounded-lg px-3 py-2 focus:ring focus:border-blue-600"></textarea>
+        class="w-full border px-3 py-2 rounded focus:ring focus:border-blue-500"></textarea>
     </div>
 
     <div class="md:col-span-2 text-right">
       <button
-        class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded-lg transition">
-        Save Data
+        class="bg-blue-700 hover:bg-blue-800 text-white px-6 py-2 rounded">
+        💾 Simpan Data
       </button>
     </div>
   </form>
 </section>
 
 <!-- ===== SEARCH ===== -->
-<section class="bg-white rounded-xl shadow-sm px-6 py-4">
+<section class="bg-white rounded-lg shadow px-6 py-4">
   <form method="GET" action="/" class="flex gap-3">
     <input
       type="text"
       name="search"
       value="<%= search || '' %>"
-      placeholder="Search thesis title..."
-      class="flex-1 border rounded-lg px-3 py-2 focus:ring focus:border-blue-600"
+      placeholder="🔍 Cari judul tugas akhir..."
+      class="flex-1 border px-3 py-2 rounded focus:ring focus:border-blue-500"
     />
-    <button class="bg-gray-800 hover:bg-gray-900 text-white px-6 rounded-lg">
-      Search
+    <button class="bg-gray-800 hover:bg-gray-900 text-white px-5 rounded">
+      Cari
     </button>
   </form>
 </section>
 
 <!-- ===== TABLE ===== -->
-<section class="bg-white rounded-xl shadow-sm">
+<section class="bg-white rounded-lg shadow">
   <div class="border-b px-6 py-4 flex justify-between items-center">
     <div>
-      <h2 class="text-lg font-semibold">
-        📑 Thesis Data List
+      <h2 class="text-lg font-semibold text-gray-700">
+        📊 Daftar Tugas Akhir Mahasiswa
       </h2>
       <p class="text-sm text-gray-500">
-        Stored student thesis records
+        Data tersimpan dalam basis data sistem
       </p>
     </div>
-    <span class="text-xs bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
-      Total Records: <%= menfess.length %>
+    <span class="text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+      Total Data: <%= menfess.length %>
     </span>
   </div>
 
   <div class="overflow-x-auto px-6 py-4">
-    <table class="w-full text-sm border border-gray-200 rounded-lg overflow-hidden">
-      <thead class="bg-gray-100">
+    <table class="w-full text-sm border border-gray-200">
+      <thead class="bg-gray-100 text-gray-700">
         <tr>
           <th class="border px-3 py-2 text-center">No</th>
-          <th class="border px-3 py-2">Name</th>
-          <th class="border px-3 py-2">Student ID</th>
-          <th class="border px-3 py-2">Program</th>
-          <th class="border px-3 py-2">Thesis Title</th>
-          <th class="border px-3 py-2 text-center">Action</th>
+          <th class="border px-3 py-2">Nama</th>
+          <th class="border px-3 py-2">NIM</th>
+          <th class="border px-3 py-2">Prodi</th>
+          <th class="border px-3 py-2">Judul Tugas Akhir</th>
+          <th class="border px-3 py-2 text-center">Aksi</th>
         </tr>
       </thead>
 
       <tbody>
         <% if (menfess.length === 0) { %>
           <tr>
-            <td colspan="6" class="text-center py-10 text-gray-500">
-              No thesis data available
+            <td colspan="6" class="text-center py-8 text-gray-500">
+              Belum ada data tugas akhir yang tersimpan
             </td>
           </tr>
         <% } %>
@@ -145,10 +141,9 @@
             <td class="border px-3 py-2"><%= m.content %></td>
             <td class="border px-3 py-2 text-center">
               <form method="POST" action="/delete/<%= m.id %>">
-                <button
-                  class="text-red-600 hover:text-red-800 hover:underline"
-                  onclick="return confirm('Delete this data?')">
-                  Delete
+                <button class="text-red-600 hover:underline"
+                        onclick="return confirm('Yakin ingin menghapus data ini?')">
+                  Hapus
                 </button>
               </form>
             </td>
@@ -163,12 +158,14 @@
 
 <!-- ===== FOOTER ===== -->
 <footer class="bg-white border-t mt-14">
-  <div class="max-w-7xl mx-auto px-6 py-6 text-sm text-gray-500 text-center">
-    © 2026 Thesis Directory Information System  
+  <div class="max-w-7xl mx-auto px-6 py-4 text-sm text-gray-500 text-center">
+    © 2026 Sistem Informasi Direktori Tugas Akhir Mahasiswa  
     <br />
-    Server Technology Practicum — Tekser D
+    Praktikum Teknologi Server — Kelas Tekser D
   </div>
 </footer>
 
 </body>
 </html>
+
+## END OF FILE ##

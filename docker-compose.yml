@@ -50,4 +50,4 @@ volumes:
 
 networks:
   tekser_net:
-    driver: bridge
+    driver: bridge 

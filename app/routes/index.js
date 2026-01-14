@@ -35,7 +35,6 @@ router.get("/", (req, res) => {
         return res.send("DB Error");
       }
 
-      // ✅ FIX UTAMA (STRING → NUMBER)
       const totalData = Number(countResult[0].total);
       const totalPage = Math.ceil(totalData / limit);
 
